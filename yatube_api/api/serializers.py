@@ -8,7 +8,7 @@ class PostSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='username'
     )
-    comments = serializers.StringRelatedField(required=False)
+    # comments = serializers.StringRelatedField(required=False)
 
     class Meta:
         model = Post
