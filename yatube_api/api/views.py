@@ -1,10 +1,9 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import status, viewsets
-from rest_framework.response import Response
+from rest_framework import viewsets
 
+from api.permission import AuthorOrReadOnly
+from api.serializers import CommentSerializer, GroupSerializer, PostSerializer
 from posts.models import Group, Post
-from .permission import AuthorOrReadOnly
-from .serializers import CommentSerializer, GroupSerializer, PostSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -14,17 +13,6 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
-
-    def perform_update(self, serializer):
-        serializer.save(author=self.request.user)
-
-    def perform_delete(self, instance):
-        instance.delete()
-
-    def list(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-        return super().list(request, *args, **kwargs)
 
 
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):

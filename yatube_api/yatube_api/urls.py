@@ -7,7 +7,6 @@ from rest_framework.routers import DefaultRouter
 
 from api.views import CommentViewSet, GroupViewSet, PostViewSet
 
-
 router = DefaultRouter()
 router.register(r'posts', PostViewSet)
 router.register(r'groups', GroupViewSet)
